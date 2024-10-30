@@ -17,7 +17,7 @@ int main()
         matrix[i] = new int[n];
         for (int j = 0; j < n; j++)
         {
-            matrix[i][j] = i + j + rand() % 10;
+            matrix[i][j] = i + j;
         }
     }
 
@@ -25,16 +25,16 @@ int main()
     symetryResult resSymImp = timeCheckSymFunction(checkSymImp, matrix, n);
     symetryResult resSymOMP = timeCheckSymFunction(checkSymOMP, matrix, n);
 
-    std::cout << "Time taken by checkSymImp: " << resSymImp.duration << " seconds" << std::endl;
     std::cout << "Time taken by checkSymSeq: " << resSymSeq.duration << " seconds" << std::endl;
+    std::cout << "Time taken by checkSymImp: " << resSymImp.duration << " seconds" << std::endl;
     std::cout << "Time taken by checkSymOMP: " << resSymOMP.duration << " seconds" << std::endl;
 
     transposeResult resTransSeq = timeTransposeFunction(transpose, matrix, n);
     transposeResult resTransImp = timeTransposeFunction(matTransposeImp, matrix, n);
     transposeResult resTransOMP = timeTransposeFunction(matTransposeOMP, matrix, n);
 
-    std::cout << "Time taken by matTransposeImp: " << resTransImp.duration << " seconds" << std::endl;
     std::cout << "Time taken by matTransposeSeq: " << resTransSeq.duration << " seconds" << std::endl;
+    std::cout << "Time taken by matTransposeImp: " << resTransImp.duration << " seconds" << std::endl;
     std::cout << "Time taken by matTransposeOMP: " << resTransOMP.duration << " seconds" << std::endl;
 
     if (print)

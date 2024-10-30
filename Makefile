@@ -16,12 +16,10 @@ all: $(TARGET)
 
 # Link the object files to create the executable
 $(TARGET): $(OBJS)
-	@echo "Linking object files to create the executable..."
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 # Compile source files into object files
 src/%.o: src/%.cpp
-	@echo "Compiling $< into $@..."
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Clean up build files
