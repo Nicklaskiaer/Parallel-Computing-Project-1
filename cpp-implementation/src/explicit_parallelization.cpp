@@ -2,20 +2,25 @@
 
 bool checkSymOMP(int **matrix, int n)
 {
-    bool sym = true;
-#pragma omp parallel for collapse(2) shared(sym)
-    for (int i = 0; i < n; i++)
+#pragma omp parallel for collapse(2)
+    for (int i = 0; i < n; i += BLOCK_SIZE)
     {
-        for (int j = 0; j < n; j++)
+        for (int j = i + 1; j < n; j += BLOCK_SIZE)
         {
-            if (matrix[i][j] != matrix[j][i])
+            for (int bi = i; bi < std::min(i + BLOCK_SIZE, n); bi++)
             {
-#pragma omp atomic write
-                sym = false;
+                for (int bj = j; bj < std::min(j + BLOCK_SIZE, n); bj++)
+                {
+                    if (matrix[bi][bj] != matrix[bj][bi])
+                    {
+#pragma omp cancel for
+                        return false;
+                    }
+                }
             }
         }
     }
-    return sym;
+    return true;
 }
 
 int **matTransposeOMP(int **matrix, int n)
