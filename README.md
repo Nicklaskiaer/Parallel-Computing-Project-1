@@ -1,7 +1,12 @@
-# intro-parco-h1
+# Parallel Computing Project
+
+Dependencies:
+
+- OpenMP
+- C++ compiler (g++14 or higher)
+- Make
 
 Guide:
-
 Go to the cpp-implementation directory, and run the following command:
 
 ```bash
