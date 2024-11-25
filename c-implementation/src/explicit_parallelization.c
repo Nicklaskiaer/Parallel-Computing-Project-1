@@ -3,20 +3,9 @@
 #include <time.h>
 #include <omp.h>
 
-#define N 4 // Adjust as needed
+#define N 10000 // Adjust as needed
 
-void initializeMatrix(float matrix[N][N])
-{
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < N; j++)
-        {
-            matrix[i][j] = (float)rand() / RAND_MAX;
-        }
-    }
-}
-
-int checkSymOMP(float matrix[N][N])
+int checkSymOMP(int **matrix)
 {
     int symmetric = 1;
 #pragma omp parallel for shared(symmetric)
@@ -34,36 +23,55 @@ int checkSymOMP(float matrix[N][N])
     return symmetric;
 }
 
-void matTransposeOMP(float matrix[N][N], float transposed[N][N])
+void matTransposeOMP(int **matrix)
 {
 #pragma omp parallel for
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < N; j++)
         {
-            transposed[j][i] = matrix[i][j];
+            matrix[j][i] = matrix[i][j];
         }
     }
 }
 
 int main()
 {
-    float matrix[N][N];
-    float transposed[N][N];
-    initializeMatrix(matrix);
+    int **matrix = (int **)malloc(N * sizeof(int *)); // Allocate rows
+    for (int i = 0; i < N; i++)
+    {
+        matrix[i] = (int *)malloc(N * sizeof(int)); // Allocate columns for each row
+    }
+
+    // Initialize the matrix
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            matrix[i][j] = i + j;
+        }
+    }
 
     // Symmetry check with OpenMP
-    double start = omp_get_wtime();
+    clock_t start = clock();
     int isSymmetric = checkSymOMP(matrix);
-    double end = omp_get_wtime();
-    printf("Symmetry check time (OpenMP): %f seconds\n", end - start);
+    clock_t end = clock();
+    printf("Symmetry check time: %f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
 
     // Transpose with OpenMP
-    start = omp_get_wtime();
-    matTransposeOMP(matrix, transposed);
-    end = omp_get_wtime();
-    printf("Transpose time (OpenMP): %f seconds\n", end - start);
+    start = clock();
+    matTransposeOMP(matrix);
+    end = clock();
+    printf("Transpose time: %f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
 
     printf("Matrix is %ssymmetric\n", isSymmetric ? "" : "not ");
+
+    // Free memory
+    for (int i = 0; i < N; i++)
+    {
+        free(matrix[i]);
+    }
+    free(matrix);
+
     return 0;
 }

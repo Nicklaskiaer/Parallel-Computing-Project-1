@@ -4,7 +4,7 @@
 
 #define N 10000 // You can adjust this or take it as input
 
-int checkSym(int **matrix)
+int checkSymImp(int **matrix)
 {
     for (int i = 0; i < N; i++)
     {
@@ -19,7 +19,7 @@ int checkSym(int **matrix)
     return 1; // Symmetric
 }
 
-void matTranspose(int **matrix)
+void matTransposeImp(int **matrix)
 {
     for (int i = 0; i < N; i++)
     {
@@ -49,13 +49,13 @@ int main()
 
     // Measure time for symmetry check
     clock_t start = clock();
-    int isSymmetric = checkSym(matrix);
+    int isSymmetric = checkSymImp(matrix);
     clock_t end = clock();
     printf("Symmetry check time: %f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);
 
     // Measure time for matrix transposition
     start = clock();
-    matTranspose(matrix);
+    matTransposeImp(matrix);
     end = clock();
 
     printf("Transpose time: %f seconds\n", (double)(end - start) / CLOCKS_PER_SEC);

@@ -2,7 +2,7 @@
 
 guide:
 
-compilation:
+compilation cpp:
 
 /opt/homebrew/bin/g++-14 -o src/executables/sequential_implementation src/sequential_implementation.cpp
 /opt/homebrew/bin/g++-14 -o src/executables/implicit_parallelization src/implicit_parallelization.cpp
@@ -14,15 +14,35 @@ with openmp:
 
 ### Sequential Implementation
 
-With a randomly generated non symetric matrix of size 50000:
-
-| Run | checkSym (seconds) | transpose (seconds) |
-| --- | ------------------ | ------------------- |
-| 1   | 0.003613           | 5.03482             |
-| 2   | 1.8e-05            | 5.56534             |
-| 3   | 1.1e-05            | 5.28677             |
-| 4   | 0.002899           | 5.27521             |
-| 5   | 1e-06              | 4.99414             |
-| AVG | 0.0013084 s        | 5.231256 s          |
+Symmetry check time: 0.493905 seconds\
+Transpose time: 0.539214 seconds\
+Matrix is symmetric
 
 ### Implicit Parallelization
+
+With O2\
+Symmetry check time: 0.206490 seconds\
+Transpose time: 0.619467 seconds\
+Matrix is symmetric
+
+With O3\
+Symmetry check time: 0.194329 seconds\
+Transpose time: 0.619037 seconds\
+Matrix is symmetric
+
+### Explicit Parallelization
+
+Without optimization\
+Symmetry check time: 0.776487 seconds\
+Transpose time: 2.123414 seconds\
+Matrix is symmetric
+
+With O2\
+Symmetry check time: 0.608189 seconds\
+Transpose time: 2.547630 seconds\
+Matrix is symmetric
+
+With O3\
+Symmetry check time: 0.618733 seconds\
+Transpose time: 2.413074 seconds\
+Matrix is symmetric
