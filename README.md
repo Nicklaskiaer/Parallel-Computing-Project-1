@@ -1,48 +1,83 @@
 # intro-parco-h1
 
-guide:
+Guide:
 
-compilation cpp:
+Go to the cpp-implementation directory, and run the following command:
 
-/opt/homebrew/bin/g++-14 -o src/executables/sequential_implementation src/sequential_implementation.cpp
-/opt/homebrew/bin/g++-14 -o src/executables/implicit_parallelization src/implicit_parallelization.cpp
+```bash
+make
+```
 
-with openmp:
-/opt/homebrew/bin/g++-14 -fopenmp -o src/executables/explicit_parallelization src/explicit_parallelization.cpp
+This will compile the code and create the executable. To run the code, use the following command:
 
-## Data and Results
+```bash
+./main
+```
 
-### Sequential Implementation
+This will run the program, asking the user for a matrix size, and run the symetry check and transpose functions of all implementations. The results will be printed to the console.
 
-Symmetry check time: 0.493905 seconds\
-Transpose time: 0.539214 seconds\
-Matrix is symmetric
+To clean the directory, use the following command:
 
-### Implicit Parallelization
+```bash
+make clean
+```
 
-With O2\
-Symmetry check time: 0.206490 seconds\
-Transpose time: 0.619467 seconds\
-Matrix is symmetric
+This will remove the executable and object files from the directory.
 
-With O3\
-Symmetry check time: 0.194329 seconds\
-Transpose time: 0.619037 seconds\
-Matrix is symmetric
+# Implementation
 
-### Explicit Parallelization
+## General Information
 
-Without optimization\
-Symmetry check time: 0.776487 seconds\
-Transpose time: 2.123414 seconds\
-Matrix is symmetric
+The implementations return a struct symmetryResult, or transposeResult which contains the following fields:
 
-With O2\
-Symmetry check time: 0.608189 seconds\
-Transpose time: 2.547630 seconds\
-Matrix is symmetric
+```cpp
+struct symetryResult {
+    bool isSymetric;
+    double duration;
+};
 
-With O3\
-Symmetry check time: 0.618733 seconds\
-Transpose time: 2.413074 seconds\
-Matrix is symmetric
+```
+
+```cpp
+
+struct transposeResult {
+    int **new_matrix;
+    double duration;
+};
+```
+
+The different implementations are split into different files, all using header files to include the necessary functions and structs.
+The helpers file contains the structs, a function to print a matrix, functions that runs a given function times it. Returning the corresponding result struct.
+The main file is used to run the program, and call the functions from the different implementations.
+
+## Sequential Implementation
+
+This implementation is sequential and uses a single thread to run the symetry check and transpose functions.
+The symetry check function checks if a matrix is symmetrical, by comparing elements (i, j) with elements (j, i) one by one.
+The transpose function transposes a matrix, by swapping elements (i, j) with elements (j, i) one by one.
+
+## Implicit Parrallelization
+
+This implementation relies on blocking/tilling and loop unrolling to parallelize the symetry check and transpose functions.
+The improvements come from breaking the matrix into BLOCK_SIZE × BLOCK_SIZE tiles. And unrolling the inner block loops to process 4 elements at a time.
+
+### Blocking/Tiling
+
+Blocks ensure that smaller chunks of the matrix are accessed in contiguous memory, improving spatial locality and making better use of the CPU cache. By processing one block at a time, the likelihood of cache hits increases, reducing the time spent on memory access.
+
+### Loop Unrolling
+
+Loop unrolling reduces the overhead of loop control, by processing multiple elements in a single iteration. This reduces the number of iterations required to process the entire matrix, and the number of conditional jumps, improving performance.
+This is achieved by checking 4 elements of the blocks at a time, and returning false if any of the 4 elements is not symmetrical.
+
+In the end the unrolled loop also checks the remaining elements of the block, if the block is not a multiple of 4.
+
+## Explicit Parrallelization
+
+This implementation uses OpenMP to parallelize the symmetry check and transpose functions. By distributing the workload across multiple threads.
+
+### OpenMP Parallelization
+
+OpenMP's
+#pragma omp parallel for collapse(2)
+directive is used to parallelize the nested loops in both functions. This allows the two-dimensional iteration space to be split across multiple threads, ensuring efficient utilization of CPU cores. The collapse(2) clause merges the loops, providing finer-grained parallelism and improving load balancing.
