@@ -52,7 +52,7 @@ struct transposeResult {
 ```
 
 The different implementations are split into different files, all using header files to include the necessary functions and structs.
-The helpers file contains the structs, a function to print a matrix, functions that runs a given function times it. Returning the corresponding result struct.
+The helpers file contains the structs, a function to print a matrix, functions that run a given function and times it. Returning the corresponding result struct.
 The main file is used to run the program, and call the functions from the different implementations.
 
 ## Sequential Implementation
