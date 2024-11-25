@@ -7,7 +7,7 @@
 const int BLOCK_SIZE = 64;
 
 struct symetryResult {
-    bool sym;
+    bool isSymetric;
     double duration;
 };
 
