@@ -6,7 +6,7 @@ Dependencies:
 - C++ compiler (g++14 or higher)
 - Make
 
-Guide:\\
+Guide: \\
 Go to the cpp-implementation directory, and run the following command:
 
 ```bash
