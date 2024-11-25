@@ -1,3 +1,5 @@
 *.o
 executables
 main
+output_files
+```
