@@ -7,5 +7,6 @@
 #include "sequential_implementation.h"
 
 int main();
+int run_functions(int n);
 
 #endif
