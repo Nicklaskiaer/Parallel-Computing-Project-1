@@ -17,8 +17,7 @@ bool checkSymOMP(int **matrix, int n) {
 }
 
 int **matTransposeOMP(int **matrix, int n) {
-    int *data = new int[n * n];  // 1D array to store the matrix for better
-                                 // cache performance
+    int *data = new int[n * n];
     int **new_matrix = new int *[n];
     for (int i = 0; i < n; i++) {
         new_matrix[i] = &data[i * n];
