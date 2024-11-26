@@ -86,3 +86,113 @@ This implementation uses OpenMP to parallelize the symmetry check and transpose 
 OpenMP's
 #pragma omp parallel for collapse(2)
 directive is used to parallelize the nested loops in both functions. This allows the two-dimensional iteration space to be split across multiple threads, ensuring efficient utilization of CPU cores. The collapse(2) clause merges the loops, providing finer-grained parallelism and improving load balancing.
+
+# Results
+
+<details>
+<summary>Running for n = 2^4</summary>
+
+Time taken by checkSymSeq: 5e-06 seconds \
+Time taken by checkSymImp: 4e-06 seconds \
+Time taken by checkSymOMP: 5e-06 seconds \
+Time taken by matTransposeSeq: 4e-06 seconds \
+Time taken by matTransposeImp: 4e-06 seconds \
+Time taken by matTransposeOMP: 6e-06 seconds
+
+</details>
+
+<details>
+<summary>Running for n = 2^5</summary>
+
+Time taken by checkSymSeq: 8e-06 seconds \
+Time taken by checkSymImp: 7e-06 seconds \
+Time taken by checkSymOMP: 1.7e-05 seconds \
+Time taken by matTransposeSeq: 1.4e-05 seconds \
+Time taken by matTransposeImp: 9e-06 seconds \
+Time taken by matTransposeOMP: 1.9e-05 seconds
+
+</details>
+
+<details>
+<summary>Running for n = 2^6</summary>
+
+Time taken by checkSymSeq: 2.5e-05 seconds \
+Time taken by checkSymImp: 2.3e-05 seconds \
+Time taken by checkSymOMP: 6.3e-05 seconds \
+Time taken by matTransposeSeq: 3.2e-05 seconds \
+Time taken by matTransposeImp: 2.7e-05 seconds \
+Time taken by matTransposeOMP: 6.8e-05 seconds
+
+</details>
+
+<details>
+<summary>Running for n = 2^7</summary>
+
+Time taken by checkSymSeq: 0.000106 seconds \
+Time taken by checkSymImp: 7.2e-05 seconds \
+Time taken by checkSymOMP: 0.000193 seconds \
+Time taken by matTransposeSeq: 0.000133 seconds \
+Time taken by matTransposeImp: 9.5e-05 seconds \
+Time taken by matTransposeOMP: 0.000243 seconds
+
+</details>
+
+<details>
+<summary>Running for n = 2^8</summary>
+
+Time taken by checkSymSeq: 0.000453 seconds \
+Time taken by checkSymImp: 0.000214 seconds \
+Time taken by checkSymOMP: 0.000548 seconds \
+Time taken by matTransposeSeq: 0.000552 seconds \
+Time taken by matTransposeImp: 0.00015 seconds \
+Time taken by matTransposeOMP: 0.000428 seconds
+
+</details>
+
+<details>
+<summary>Running for n = 2^9</summary>
+
+Time taken by checkSymSeq: 0.000809 seconds \
+Time taken by checkSymImp: 0.000369 seconds \
+Time taken by checkSymOMP: 0.00092 seconds \
+Time taken by matTransposeSeq: 0.000869 seconds \
+Time taken by matTransposeImp: 0.000677 seconds \
+Time taken by matTransposeOMP: 0.001928 seconds
+
+</details>
+
+<details>
+<summary>Running for n = 2^10</summary>
+
+Time taken by checkSymSeq: 0.003163 seconds \
+Time taken by checkSymImp: 0.001686 seconds \
+Time taken by checkSymOMP: 0.00389 seconds \
+Time taken by matTransposeSeq: 0.003824 seconds \
+Time taken by matTransposeImp: 0.004011 seconds \
+Time taken by matTransposeOMP: 0.008848 seconds
+
+</details>
+
+<details>
+<summary>Running for n = 2^11</summary>
+
+Time taken by checkSymSeq: 0.017173 seconds \
+Time taken by checkSymImp: 0.005728 seconds \
+Time taken by checkSymOMP: 0.011982 seconds \
+Time taken by matTransposeSeq: 0.014781 seconds \
+Time taken by matTransposeImp: 0.008988 seconds \
+Time taken by matTransposeOMP: 0.021249 seconds
+
+</details>
+
+<details>
+<summary>Running for n = 2^12</summary>
+
+Time taken by checkSymSeq: 0.134523 seconds \
+Time taken by checkSymImp: 0.018659 seconds \
+Time taken by checkSymOMP: 0.040539 seconds \
+Time taken by matTransposeSeq: 0.141086 seconds \
+Time taken by matTransposeImp: 0.03673 seconds \
+Time taken by matTransposeOMP: 0.087226 seconds
+
+</details>
