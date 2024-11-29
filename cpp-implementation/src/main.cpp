@@ -1,21 +1,16 @@
 #include "main.h"
 
 int main() {
-    int *ns = new int[9]{
-        (int)std::pow(2, 4),  (int)std::pow(2, 5),  (int)std::pow(2, 6),
-        (int)std::pow(2, 7),  (int)std::pow(2, 8),  (int)std::pow(2, 9),
-        (int)std::pow(2, 10), (int)std::pow(2, 11), (int)std::pow(2, 12)};
-
-    for (int i = 0; i < 9; i++) {
-        run_functions(ns[i]);
+    for (int i = 4; i <= 12; i++) {
+        run_functions((int)std::pow(2, i));
     }
 }
 
 int run_functions(int n) {
     std::cout << "Running for n = 2^" << std::log2(n) << "\n";
 
-    int r = 0;
-    int print = 0;
+    int print, r = 0;
+    // int n;
     // std::cout << "Enter the size of the matrix: ";
     // std::cin >> n;
     // std::cout << "Do you want to print the matrices? (1/0): ";
